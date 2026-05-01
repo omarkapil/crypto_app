@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <button class="back-btn" onclick="window.location.href='/'">← Back</button>
+            <h1>Choose Encryption Method</h1>
+        </div>
+        <div class="crypto-buttons">
+            {% for method in encryption_methods %}
+            <button 
+                class="method-btn" 
+                data-method="{{ method }}" 
+                onclick="openModal('{{ method }}', 'encryption')">
+                {{ method }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            
+            <label for="input-text">Enter text to encrypt:</label>
+            <textarea id="input-text" rows="5" placeholder="Enter your text here..."></textarea>
+            
+            <button id="process-btn">Start Encryption</button>
+            
+            <div id="result-area" class="result-area">
+                <p><strong>Encrypted Text:</strong></p>
+                <textarea id="output-text" rows="5" readonly></textarea>
+                <div id="status-message" class="status-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

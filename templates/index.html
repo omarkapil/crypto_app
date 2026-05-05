@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto App - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Operation Type</h1>
+        <div class="main-buttons">
+            <button class="main-btn encryption-btn" onclick="window.location.href='/encryption'">
+                <span class="btn-icon">🔐</span>
+                <span class="btn-text">Encryption</span>
+                <span class="btn-subtitle">Encrypt your data</span>
+            </button>
+            <button class="main-btn decryption-btn" onclick="window.location.href='/decryption'">
+                <span class="btn-icon">🔓</span>
+                <span class="btn-text">Decryption</span>
+                <span class="btn-subtitle">Decrypt your data</span>
+            </button>
+            <button class="main-btn hashing-btn" onclick="window.location.href='/hashing'">
+                <span class="btn-icon">#️⃣</span>
+                <span class="btn-text">Hashing</span>
+                <span class="btn-subtitle">Hash your data</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

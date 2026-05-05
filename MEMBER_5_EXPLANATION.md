@@ -1,70 +1,179 @@
 # 📘 Member 5 — Console UI & Exception Handling Explanation
 
-This document provides a line-by-line explanation of `main.py`, which is the primary responsibility of **Member 5**. This guide will help you understand how the Console UI works and how Exception Handling is implemented throughout the system.
+This document provides a line-by-line explanation of `main.py`, including the actual code segments, which is the primary responsibility of **Member 5**.
 
 ---
 
 ## 📄 `main.py` Line-by-Line Breakdown
 
-### 1. Header & Documentation (Lines 1–26)
-*   **Lines 1–4:** Define the purpose of the file (Console-based menu).
-*   **Lines 5–9:** Bilingual description of the interface.
-*   **Lines 11–17:** Lists the core programming concepts demonstrated: Exception Handling, Polymorphism, and OOP usage.
+### 1. Header & Documentation
+```python
+"""
+main.py
+-------
+Console-based menu interface for the Cryptographic System.
+واجهة قائمة معتمدة على وحدة التحكم لنظام التشفير.
 
-### 2. Imports (Lines 28–31)
-*   **Line 28:** Imports `LCGKeyGenerator` to handle deterministic key creation.
-*   **Line 29:** Imports block cipher modes (`ECB`, `CBC`, `CTR`).
-*   **Line 30:** Imports `RSACipher` for asymmetric encryption.
-*   **Line 31:** Imports `SHA1Hasher` for hashing.
+(Part E — Simple User Interface)
+(الجزء هـ — واجهة مستخدم بسيطة)
 
-### 3. Visual Styling (Lines 34–55)
-*   **Lines 39–44:** Define ANSI escape codes for colors (Green, Yellow, Cyan, Red, Bold). These make the console output look professional.
-*   **Line 50–55:** The `BANNER` constant displays the project title in a styled box.
+Demonstrates: / يوضح البرنامج:
+    - Exception Handling : try / except / finally throughout
+    - Polymorphism       : all cipher objects called via the same interface
+    - OOP usage          : all classes instantiated and used here
+"""
+```
+*   **Purpose:** Defines the file and the core concepts (Exception Handling, Polymorphism, OOP).
 
-### 4. Main Menu String (Lines 58–78)
-*   **Lines 59–78:** Defines the `MENU` string, showing all available cryptographic options (1–5) and the Exit option (0).
+### 2. Imports
+```python
+from crypto_modules.lcg_key_generator import LCGKeyGenerator
+from crypto_modules.block_ciphers import ECBCipher, CBCCipher, CTRCipher
+from crypto_modules.rsa_cipher import RSACipher
+from crypto_modules.sha1_cipher import SHA1Hasher
+```
+*   **Key Generator:** Imports the class that creates keys.
+*   **Ciphers:** Imports all the encryption/hashing classes Member 5 must present to the user.
 
-### 5. Cipher Factory (Lines 82–108)
-*   **Function `build_ciphers(seed)`:**
-    *   **Line 91:** Creates an instance of `LCGKeyGenerator` using the user's seed.
-    *   **Lines 102–108:** Returns a dictionary where keys are strings ("1", "2", etc.) and values are the actual cipher objects. This demonstrates **OOP Instantiation**.
+### 3. Visual Styling & Banner
+```python
+GREEN  = "\033[92m"
+YELLOW = "\033[93m"
+CYAN   = "\033[96m"
+RED    = "\033[91m"
+BOLD   = "\033[1m"
+RESET  = "\033[0m"
 
-### 6. Sub-Menu Logic (Lines 130–265)
-*   **Function `cipher_menu(cipher, label)`:**
-    *   **Line 140:** Checks if the object is a hasher (SHA-1) because hashers don't have a "Decrypt" option.
-    *   **Lines 142–154:** A `while True` loop keeps the user in the sub-menu until they choose to go back.
-    *   **Line 156 (Start of Exception Handling):** Uses `try` to capture user input.
-    *   **Lines 161–165:** **Exception Handling:** Catches `EOFError` (Ctrl+D) or `KeyboardInterrupt` (Ctrl+C) so the program doesn't crash if the user tries to quit abruptly.
-    *   **Line 173–198:** **Input Validation:** Another `try` block for text input. If the text is empty (Line 192), it warns the user and continues the loop.
-    *   **Line 205–218:** **Polymorphism in Action:** Depending on the choice, it calls `.hash()`, `.encrypt()`, or `.decrypt()`. Notice how the code doesn't care which cipher it is; it just calls the method.
-    *   **Line 222–241:** **Specific Exception Handling (Task 4):**
-        *   `ValueError`: Handles bad inputs (like entering letters where numbers are expected).
-        *   `NotImplementedError`: Specifically handles attempts to decrypt a SHA-1 hash.
-        *   `RuntimeError`: Handles internal logic failures during encryption.
-    *   **Line 243–246:** **The `finally` block:** This line *always* runs, confirming the operation is complete regardless of success or failure.
+BANNER = f"""
+{CYAN}{BOLD}╔══════════════════════════════════════════════╗
+║      Advanced Cryptographic System           ║
+║      Python OOP — Educational Demo           ║
+╚══════════════════════════════════════════════╝{RESET}
+"""
+```
+*   **ANSI Codes:** Used to color the text in the terminal.
+*   **Banner:** A stylized header shown at startup.
 
-### 7. Seed Input (Lines 268–319)
-*   **Function `get_seed()`:**
-    *   **Lines 277–308:** Asks the user for an LCG seed.
-    *   **Line 306–307:** Raises a `ValueError` manually if the seed is negative.
-    *   **Line 309–318:** **Graceful Fallback:** If the user enters garbage, the program catches the error and uses a `DEFAULT_SEED` instead of crashing.
+### 4. Main Menu String
+```python
+MENU = f"""
+{YELLOW}{BOLD}──────────────────── MAIN MENU ────────────────────{RESET}
+  [1]  ECB Mode   — Electronic Code Book (نمط التشفير الإلكتروني)
+  [2]  CBC Mode   — Cipher Block Chaining (نمط ربط كتل التشفير)
+  [3]  CTR Mode   — Counter Mode (نمط العداد)
+  [4]  RSA        — Public-Key Encryption (تشفير المفتاح العام)
+  [5]  SHA-1      — Hash Function (دالة الهاش - اتجاه واحد)
+  [0]  Exit       — خروج
+{YELLOW}────────────────────────────────────────────────────{RESET}
+"""
+```
+*   **Selection:** The UI allows users to select any cryptographic algorithm via numbers.
 
-### 8. The Main Loop (Lines 332–389)
-*   **Function `main()`:**
-    *   **Line 336:** Gets the seed.
-    *   **Line 337:** Builds the cipher dictionary.
-    *   **Lines 343–385:** The main loop that drives the entire application.
-    *   **Line 352–355:** Handles menu-level interruptions.
-    *   **Line 359:** Exits if "0" is selected.
-    *   **Line 364:** If the choice is valid, it calls `cipher_menu()`—passing the object and its label.
+### 5. Cipher Factory (OOP in Action)
+```python
+def build_ciphers(seed: int) -> dict:
+    kg = LCGKeyGenerator(seed)
+    return {
+        "1": ECBCipher(kg),
+        "2": CBCCipher(kg),
+        "3": CTRCipher(kg),
+        "4": RSACipher(kg),
+        "5": SHA1Hasher(),
+    }
+```
+*   **Instantiation:** This function creates the objects. Notice how `kg` (the key generator) is shared between ciphers to ensure consistent key material.
+
+### 6. Sub-Menu Logic & Exception Handling
+```python
+def cipher_menu(cipher, label: str) -> None:
+    is_hasher = isinstance(cipher, SHA1Hasher)
+    while True:
+        print(f"\n{CYAN}── {label} ──{RESET}")
+        # ... menu printing ...
+        try:
+            choice = input(f"\n{BOLD}Choice: {RESET}").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nReturning to main menu.")
+            return
+
+        if choice == "0": return
+
+        try:
+            text = input(f"{BOLD}Enter text: {RESET}").strip()
+            if not text:
+                print(f"{RED}[!] Text cannot be empty. Please try again.{RESET}")
+                continue
+            
+            # Polymorphism: result is fetched by calling the same methods
+            if is_hasher and choice == "1":
+                result = cipher.hash(text)
+            elif not is_hasher and choice == "1":
+                result = cipher.encrypt(text)
+            elif not is_hasher and choice == "2":
+                result = cipher.decrypt(text)
+            
+            print(f"\n{GREEN}{result}{RESET}")
+
+        except ValueError as exc:
+            print(f"\n{RED}[Input Error / خطأ في الإدخال] {exc}{RESET}")
+        except NotImplementedError as exc:
+            print(f"\n{RED}[Not Supported / غير مدعوم] {exc}{RESET}")
+        except Exception as exc:
+            print(f"\n{RED}[Unexpected Error / خطأ غير متوقع] {exc}{RESET}")
+        finally:
+            print(f"{CYAN}── Operation complete / اكتملت العملية ──{RESET}")
+```
+*   **Polymorphism:** The `cipher` object could be any class, but we call the same methods.
+*   **Exception Handling:**
+    *   `try`: Wraps risky operations (input, encryption).
+    *   `except`: Catches specific errors so the app doesn't crash.
+    *   `finally`: Ensures a cleanup message is always shown.
+
+### 7. Seed Input with Validation
+```python
+def get_seed() -> int:
+    default = LCGKeyGenerator.DEFAULT_SEED
+    try:
+        raw = input(f"\n{BOLD}Enter LCG seed: {RESET}").strip()
+        if not raw: return default
+        seed = int(raw)
+        if seed < 0: raise ValueError("Seed must be non-negative.")
+        return seed
+    except ValueError:
+        print(f"{RED}[!] Invalid seed — using default ({default}).{RESET}")
+        return default
+```
+*   **Validation:** Checks if the user typed a number and if it's positive. If not, it falls back to a safe default.
+
+### 8. The Main Execution Loop
+```python
+def main() -> None:
+    print(BANNER)
+    try:
+        seed = get_seed()
+        ciphers = build_ciphers(seed)
+    except Exception as exc:
+        print(f"{RED}[Fatal] Could not initialise ciphers: {exc}{RESET}")
+        return
+
+    while True:
+        print(MENU)
+        choice = input(f"{BOLD}Select option: {RESET}").strip()
+        if choice == "0": break
+        elif choice in ciphers:
+            cipher_menu(ciphers[choice], CIPHER_LABELS[choice])
+        else:
+            print(f"{RED}[!] Invalid option.{RESET}")
+```
+*   **Flow Control:** The engine that runs the program until the user chooses to exit.
 
 ---
 
 ## 🛠️ Key Responsibilities for Member 5
 
-1.  **Robustness:** Your job is to ensure that no matter what the user types (empty strings, symbols, very long text), the program stays running.
-2.  **User Feedback:** When an error occurs (like the `Input Error` on Line 226), the message must be clear and helpful.
-3.  **Clean Code:** Maintain the ANSI color scheme to ensure the UI remains readable and organized.
+1.  **Robustness:** Prevent crashes using `try/except`.
+2.  **Validation:** Ensure inputs are not empty or invalid.
+3.  **UI Consistency:** Use the ANSI colors (`GREEN`, `RED`, etc.) to guide the user.
 
-> [!TIP]
-> Always remember that the `finally` block is your best friend for logging or resetting states after an operation.
+> [!IMPORTANT]
+> The most important part for Member 5 is the **Exception Handling** implementation in Task 4, ensuring secure and stable software.

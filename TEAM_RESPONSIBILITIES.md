@@ -207,6 +207,7 @@ static/style.css                     ← Application styling
 static/script.js                     ← Frontend JavaScript
 requirements.txt                     ← Python dependencies
 README.md                            ← Project documentation
+DOCUMENTATION.md                     ← Theory, Analysis & Class Diagram
 FLOWCHART.md                         ← System flowchart
 ```
 
@@ -232,7 +233,7 @@ FLOWCHART.md                         ← System flowchart
 | `crypto_modules/__init__.py` | Member 1 |
 | `crypto_modules/block_ciphers.py` | Member 2 |
 | `crypto_modules/ecb_encryption.py` | Member 2 |
-| `crypto_modules/ecb_decryption.py` | Member 2 |
+| `crypto_modules/ecb_decryption.py" | Member 2 |
 | `crypto_modules/cbc_encryption.py` | Member 2 |
 | `crypto_modules/cbc_decryption.py` | Member 2 |
 | `crypto_modules/lcg_key_generator.py` | Member 3 |
@@ -255,6 +256,7 @@ FLOWCHART.md                         ← System flowchart
 | `static/script.js` | Member 6 |
 | `requirements.txt` | Member 6 |
 | `README.md` | Member 6 |
+| `DOCUMENTATION.md` | Member 6 |
 | `FLOWCHART.md` | Member 6 |
 
 ---

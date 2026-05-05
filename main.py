@@ -2,6 +2,10 @@
 main.py
 -------
 Console-based menu interface for the Cryptographic System.
+"""
+main.py
+-------
+Console-based menu interface for the Cryptographic System.
 واجهة قائمة معتمدة على وحدة التحكم لنظام التشفير.
 
 (Part E — Simple User Interface)
@@ -254,6 +258,10 @@ def main() -> None:
         else:
             print(f"{RED}[!] Invalid option. Please choose 0–5.{RESET}")
             print(f"{RED}[!] خيار غير صحيح. يرجى اختيار رقم من 0 إلى 5.{RESET}")
+
+
+if __name__ == "__main__":
+    main()
 
 
 if __name__ == "__main__":

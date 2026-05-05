@@ -140,4 +140,23 @@ classDiagram
 ```
 
 ---
+
+## 🏆 Bonus: Performance & Improvements
+
+### Performance Comparison
+| Algorithm | Type | Complexity | Best Use Case |
+|-----------|------|------------|---------------|
+| **ECB/CBC** | Block | O(N) | General purpose data encryption. |
+| **CTR** | Stream | O(N) | High-speed, parallelizable encryption. |
+| **RSA** | Asymmetric | O(M^3) | Secure key exchange and digital signatures. |
+| **SHA-1** | Hash | O(N) | Data integrity and checksums. |
+
+*Note: In our implementation, CTR is the most efficient for large datasets as it avoids padding overhead and can be processed in parallel.*
+
+### Project Enhancements
+1.  **Web Interface:** Developed a full Flask-based web application to complement the console menu.
+2.  **Input Validation:** Robust error handling for hex strings, empty inputs, and large RSA values.
+3.  **Clean Code:** Follows PEP 8 standards with modular architecture for easy extensibility.
+
+---
 *Generated for Advanced Programming Project — 2026*

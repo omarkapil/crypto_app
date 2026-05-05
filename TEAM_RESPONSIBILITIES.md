@@ -207,6 +207,7 @@ static/style.css                     ← Application styling
 static/script.js                     ← Frontend JavaScript
 requirements.txt                     ← Python dependencies
 README.md                            ← Project documentation
+DOCUMENTATION.md                     ← Theory, Analysis & Class Diagram
 FLOWCHART.md                         ← System flowchart
 ```
 
@@ -255,6 +256,7 @@ FLOWCHART.md                         ← System flowchart
 | `static/script.js` | Member 6 |
 | `requirements.txt` | Member 6 |
 | `README.md` | Member 6 |
+| `DOCUMENTATION.md` | Member 6 |
 | `FLOWCHART.md` | Member 6 |
 
 ---

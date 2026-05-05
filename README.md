@@ -1,97 +1,102 @@
-# Crypto App
+# 🔐 Advanced Cryptographic System — Python OOP
 
-A web-based cryptographic application built with Flask that implements various encryption algorithms and cryptographic techniques.
+A comprehensive cryptographic application built using **Object-Oriented Programming (OOP)** principles in Python. This project demonstrates various encryption, decryption, and hashing techniques, fulfilling the requirements for the **Advanced Programming Project**.
 
-**Note:** For the full theoretical project requirements (Task 1, 3, 4), please see [DOCUMENTATION.md](./DOCUMENTATION.md).
+---
 
-## Features
+## 📑 Project Overview
 
-This application supports the following cryptographic methods:
+This system provides two interfaces for performing cryptographic operations:
+1.  **Console Interface:** A robust menu-driven CLI (Command Line Interface) with full exception handling.
+2.  **Web Interface:** A modern, interactive web application built with **Flask**, **HTML5**, and **CSS3**.
 
-**Encryption / Decryption**
-1. **Monoalphabetic Cipher** – substitution cipher with deterministic LCG key
-2. **Columnar Transposition** – grid-based rearrangement using LCG keyword
-3. **Hill Cipher** – 2×2 matrix cipher implemented without external libraries
-4. **RC4** – lightweight stream cipher using LCG-derived key bytes
-5. **CBC (XOR-based)** – simple block cipher in CBC mode with deterministic IV
-6. **RSA** – classic public/private key encryption using small primes for learning
+### 📘 Documentation & Theory
+For detailed theoretical explanations, real-world analysis, and the system's Class Diagram, please refer to:
+👉 **[DOCUMENTATION.md](./DOCUMENTATION.md)**
 
-**Hashing**
-- **MAC (HMAC-SHA256)**
-- **SHA-1**
+---
 
-## Requirements
+## ✨ Features
 
-- Python 3.10+
-- Flask >= 3.0.0 (see `requirements.txt`)
+### 1. Block Cipher Modes (Symmetric)
+*   **ECB (Electronic Code Book):** Independent block encryption.
+*   **CBC (Cipher Block Chaining):** Chained blocks with Initialization Vector (IV).
+*   **CTR (Counter Mode):** Converts block cipher to stream cipher using counters.
 
-## Installation
+### 2. Asymmetric & Other Ciphers
+*   **RSA:** Public-key encryption with key generation using prime pairs.
+*   **RC4:** Lightweight stream cipher.
+*   **Monoalphabetic & Hill Ciphers:** Classic substitution and transposition techniques.
 
-1. Clone the repository:
+### 3. Hashing Algorithms
+*   **SHA-1:** Deterministic one-way hash function (160-bit).
+*   **MAC:** Message Authentication Code for data integrity.
+
+### 4. Core Components
+*   **LCG Key Generator:** Custom Linear Congruential Generator for deterministic key/IV material.
+*   **Exception Handling:** Comprehensive protection against invalid inputs and runtime errors.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+*   Python 3.10+
+*   Flask (for web interface)
+
+### Installation
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/omarkapil/crypto_app.git
+    cd crypto_app
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Running the Application
+
+#### Option A: Console Menu (Recommended for testing OOP)
 ```bash
-git clone <https://github.com/omarkapil/crypto-app.git>
-cd crypto-app
+python main.py
 ```
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
-
-1. Run the Flask application:
+#### Option B: Web Dashboard
 ```bash
 python app.py
 ```
+*Once running, visit `http://localhost:5000` in your browser.*
 
-2. Open your web browser and navigate to:
-```
-http://localhost:5000
-```
+---
 
-3. Select **Encryption**, **Decryption**, or **Hashing**
-4. Choose the technique (Monoalphabetic, RSA, etc.)
-5. Enter your text, then click **Start** to run the operation
-6. Review the output + key/seed information
+## 📂 Project Structure
 
-## Project Structure
-
-```
-crypto-app-main/
-├── app.py                      # Flask routes + API
-├── requirements.txt            # Dependencies
-├── crypto_modules/             # Algorithms (encryption/decryption/hash)
-│   ├── utils.py                # LCG helpers and shared logic
-│   ├── monoalphabetic_encryption.py
-│   ├── monoalphabetic_decryption.py
-│   ├── columnar_encryption.py
-│   ├── columnar_decryption.py
-│   ├── hill_encryption.py
-│   ├── hill_decryption.py
-│   ├── rc4_encryption.py
-│   ├── rc4_decryption.py
-│   ├── cbc_encryption.py
-│   ├── cbc_decryption.py
-│   ├── rsa_encryption.py
-│   ├── rsa_decryption.py
-│   ├── mac_hashing.py
-│   └── sha1_hashing.py
-├── static/
-│   ├── script.js               # Frontend logic
-│   └── style.css               # Styling (clean, simple)
-└── templates/
-    ├── index.html
-    ├── encryption.html
-    ├── decryption.html
-    └── hashing.html
+```text
+crypto_app/
+├── main.py                     # Console UI Entry Point
+├── app.py                      # Flask Web UI Entry Point
+├── DOCUMENTATION.md            # Theory, Analysis & Class Diagram
+├── TEAM_RESPONSIBILITIES.md    # Task Allocation & Ownership
+├── FLOWCHART.md                # System Flow Visualization
+├── crypto_modules/             # core Algorithm Implementations
+│   ├── base_cipher.py          # Abstract Base Class (OOP)
+│   ├── block_ciphers.py        # ECB, CBC, CTR Classes
+│   ├── rsa_cipher.py           # RSA Implementation Class
+│   ├── sha1_cipher.py          # SHA-1 Hashing Class
+│   └── lcg_key_generator.py    # LCG Key Generator Class
+├── static/                     # Web Assets (CSS/JS)
+└── templates/                  # HTML Templates
 ```
 
-## Notes
+---
 
-- All algorithms now rely on Python's standard library only
-- Keys and IVs come from a deterministic Linear Congruential Generator (LCG) seed
-- Use the same seed (built-in default) for both encryption and decryption via the UI
-- Hashing techniques (MAC/SHA-1) are one-way, so decryption is not available
+## 🛡️ OOP Principles Applied
+*   **Abstraction:** Using `ABC` for the `BlockCipher` interface.
+*   **Inheritance:** Hierarchical structure for cipher modes.
+*   **Polymorphism:** Method overriding for `encrypt()` and `decrypt()` across different classes.
+*   **Encapsulation:** Protecting internal states like LCG seeds and RSA private keys.
 
-
+---
+*Created for the Advanced Programming Project — 2026*
